@@ -43,7 +43,7 @@ jobs:
       run: |
         git init
         git clone https://github.com/open-edge-platform/edge-microvisor-toolkit.git
-        git checkout e19142d01a3f71e4f6a80ea59410e05ba75315cf
+        # git checkout e19142d01a3f71e4f6a80ea59410e05ba75315cf
         cd edge-microvisor-toolkit
         make -j16 toolchain REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n
         make image REBUILD_PACKAGES=n REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n LICENSE_CHECK_MODE=warn CONFIG_FILE=./imageconfigs/edge-image-desktop-virtualization.json TIBER_DISTRIB_SPECS=y REPO_LIST+=./resources/manifests/package/development.repo DAILY_BUILD_REPO=./resources/manifests/package/development.repo
