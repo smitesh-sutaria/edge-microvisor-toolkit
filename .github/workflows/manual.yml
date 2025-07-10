@@ -41,6 +41,7 @@ jobs:
     # Runs a single command using the runners shell
     - name: Build EMT
       run: |
+        git init
         git clone https://github.com/open-edge-platform/edge-microvisor-toolkit.git
         git checkout e19142d01a3f71e4f6a80ea59410e05ba75315cf
         cd edge-microvisor-toolkit
