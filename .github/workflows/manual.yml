@@ -1,6 +1,6 @@
-# This is a basic workflow that is manually triggered
+# This is a workflow that is manually triggered to build EMT ISO for UCC
 
-name: Manual workflow
+name: EMT ISO Build
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
@@ -8,17 +8,8 @@ on:
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
-      name:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'Person to greet'
-        # Default value if no value is explicitly provided
-        default: 'World'
-        # Input has to be provided for the workflow to run
-        required: true
-        # The data type of the input
-        type: string
       commit:
-        # Friendly description to be shown in the UI instead of 'name'
+        # description to be shown in the UI
         description: 'commit id to build against'
         # Default value if no value is explicitly provided
         default: 'e19142d01a3f71e4f6a80ea59410e05ba75315cf'
@@ -29,18 +20,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "greet"
-  greet:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-    # Runs a single command using the runners shell
-    - name: Send greeting
-      run: echo "Hello ${{ inputs.name }}"
-
-      # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  # A workflow run is made up of one or more jobs that can run sequentially or in parallel
   build-idv-iso:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -54,12 +34,10 @@ jobs:
         git init
         git clone https://github.com/open-edge-platform/edge-microvisor-toolkit.git        
         cd edge-microvisor-toolkit
-        #git checkout e19142d01a3f71e4f6a80ea59410e05ba75315cf
         git checkout ${{ inputs.commit }}
         cd toolkit
         make -j16 toolchain REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n
-        #sudo make image REBUILD_PACKAGES=n REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n LICENSE_CHECK_MODE=warn CONFIG_FILE=./imageconfigs/edge-image-desktop-virtualization.json TIBER_DISTRIB_SPECS=y REPO_LIST+=./resources/manifests/package/development.repo DAILY_BUILD_REPO=./resources/manifests/package/development.repo
-        sudo make iso -j8 REBUILD_TOOLS=y REBUILD_PACKAGES=n CONFIG_FILE=./imageconfigs/full.json
+        sudo make iso -j16 REBUILD_TOOLS=y REBUILD_PACKAGES=n CONFIG_FILE=./imageconfigs/full.json
         
 
         
