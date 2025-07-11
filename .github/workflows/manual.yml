@@ -17,6 +17,15 @@ on:
         required: true
         # The data type of the input
         type: string
+      commit:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'commit id to build against'
+        # Default value if no value is explicitly provided
+        default: 'e19142d01a3f71e4f6a80ea59410e05ba75315cf'
+        # Input has to be provided for the workflow to run
+        required: true
+        # The data type of the input
+        type: string
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -43,9 +52,10 @@ jobs:
       run: |
         sudo apt-get update && sudo apt-get install genisoimage 
         git init
-        git clone https://github.com/open-edge-platform/edge-microvisor-toolkit.git
-        # git checkout e19142d01a3f71e4f6a80ea59410e05ba75315cf
+        git clone https://github.com/open-edge-platform/edge-microvisor-toolkit.git        
         cd edge-microvisor-toolkit
+        #git checkout e19142d01a3f71e4f6a80ea59410e05ba75315cf
+        git checkout ${{ inputs.commit }}
         cd toolkit
         make -j16 toolchain REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n
         #sudo make image REBUILD_PACKAGES=n REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n LICENSE_CHECK_MODE=warn CONFIG_FILE=./imageconfigs/edge-image-desktop-virtualization.json TIBER_DISTRIB_SPECS=y REPO_LIST+=./resources/manifests/package/development.repo DAILY_BUILD_REPO=./resources/manifests/package/development.repo
