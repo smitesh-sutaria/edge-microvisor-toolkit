@@ -37,7 +37,8 @@ jobs:
         cd edge-microvisor-toolkit
         git checkout ${{ inputs.commit }}
         cd toolkit
-        cp /home/runner/work/edge-microvisor-toolkit/edge-microvisor-toolkit/toolkit/imageconfigs/idv.json ./imageconfigs/idv.json
+        wget https://raw.githubusercontent.com/smitesh-sutaria/edge-microvisor-toolkit/refs/heads/3.0/toolkit/imageconfigs/idv.json
+        mv idv.json ./imageconfigs/
         make -j16 toolchain REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n
         sudo make iso -j8 REBUILD_TOOLS=y REBUILD_PACKAGES=n CONFIG_FILE=./imageconfigs/idv.json --debug
 
