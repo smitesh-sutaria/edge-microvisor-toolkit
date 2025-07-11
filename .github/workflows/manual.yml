@@ -37,11 +37,12 @@ jobs:
         cd edge-microvisor-toolkit
         git checkout ${{ inputs.commit }}
         cd toolkit
-        wget https://raw.githubusercontent.com/smitesh-sutaria/edge-microvisor-toolkit/refs/heads/3.0/toolkit/imageconfigs/idv.json
-        mv idv.json ./imageconfigs/
-        mv ./imageconfigs/idv.json ./imageconfigs/full.json
+        # wget https://raw.githubusercontent.com/smitesh-sutaria/edge-microvisor-toolkit/refs/heads/3.0/toolkit/imageconfigs/idv.json
+        # mv idv.json ./imageconfigs/
+        # mv ./imageconfigs/idv.json ./imageconfigs/full.json
+        mv ./imageconfigs/full.json ./imageconfigs/idv.json
         make -j16 toolchain REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n
-        sudo make iso -j8 REBUILD_TOOLS=y REBUILD_PACKAGES=n CONFIG_FILE=./imageconfigs/full.json --debug
+        sudo make iso -j8 REBUILD_TOOLS=y REBUILD_PACKAGES=n CONFIG_FILE=./imageconfigs/idv.json --debug
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.6.2
