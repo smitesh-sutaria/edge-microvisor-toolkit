@@ -38,7 +38,7 @@ jobs:
         git checkout ${{ inputs.commit }}
         cd toolkit
         make -j16 toolchain REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n --debug
-        sudo make iso -j16 REBUILD_TOOLS=y REBUILD_PACKAGES=n CONFIG_FILE="https://github.com/smitesh-sutaria/edge-microvisor-toolkit/blob/3.0/toolkit/imageconfigs/idv.json"
+        sudo make iso -j16 REBUILD_TOOLS=y REBUILD_PACKAGES=n CONFIG_FILE=../../../edge-microvisor-toolkit/toolkit/imageconfigs/idv.json
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.6.2
