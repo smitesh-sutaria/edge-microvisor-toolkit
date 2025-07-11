@@ -32,7 +32,8 @@ jobs:
       run: |
         sudo apt-get update && sudo apt-get install genisoimage 
         git init
-        git clone https://github.com/open-edge-platform/edge-microvisor-toolkit.git        
+        git clone https://github.com/open-edge-platform/edge-microvisor-toolkit.git
+        ls -lah
         cd edge-microvisor-toolkit
         git checkout ${{ inputs.commit }}
         cd toolkit
