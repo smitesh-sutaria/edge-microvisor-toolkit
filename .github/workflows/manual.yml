@@ -37,7 +37,7 @@ jobs:
         cd edge-microvisor-toolkit
         git checkout ${{ inputs.commit }}
         cd toolkit
-        make -j16 toolchain REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n --debug
+        make -j16 toolchain REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n
         sudo make iso -j16 REBUILD_TOOLS=y REBUILD_PACKAGES=n CONFIG_FILE=../../../edge-microvisor-toolkit/toolkit/imageconfigs/idv.json
 
     - name: Upload a Build Artifact
