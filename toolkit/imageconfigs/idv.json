@@ -40,6 +40,6 @@
                     "Path": "additionalconfigs/configure-systemd-networkd-client-identifier.sh"
                 }
             ]
-         }
+        }
     ]
 }
