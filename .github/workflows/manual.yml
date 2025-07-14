@@ -42,11 +42,8 @@ jobs:
         mv idv.json ./imageconfigs/
         # mv ./imageconfigs/idv.json ./imageconfigs/full.json
         # mv ./imageconfigs/full.json ./imageconfigs/idv.json
-        sudo make toolchain REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n DAILY_BUILD_REPO=./resources/manifests/package/development.repo 
-        sudo make iso -j8 REBUILD_TOOLS=y REBUILD_PACKAGES=n VALIDATE_TOOLCHAIN_GPG=n LICENSE_CHECK_MODE=warn CONFIG_FILE=./imageconfigs/idv.json DAILY_BUILD_REPO=./resources/manifests/package/development.repo REPO_LIST+=./resources/manifests/package/development.repo 
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v4.6.2
-      with:
+        sudo make toolchain REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n REBUILD_TOOLCHAIN=y
+        sudo make iso -j8 REBUILD_TOOLS=y REBUILD_PACKAGES=n VALIDATE_TOOLCHAIN_GPG=n LICENSE_CHECK_MODE=warn CONFIG_FILE=./imageconfigs/idv.json
         # Artifact name
         name: iso
         # A file, directory or wildcard pattern that describes what to upload
