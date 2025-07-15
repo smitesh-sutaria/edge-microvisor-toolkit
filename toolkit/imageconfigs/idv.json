@@ -15,8 +15,7 @@
                 "packagelists/intel-gpu-base.json",
                 "packagelists/drtm.json",
                 "packagelists/virt-guest-packages.json",
-                "packagelists/intel-wireless.json",
-                "packagelists/docker.json"
+                "packagelists/intel-wireless.json"
             ],
 	    "Packages": [
 		    "lsb-release",
