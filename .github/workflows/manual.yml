@@ -30,11 +30,19 @@ jobs:
     # Runs a single command using the runners shell
     - name: Build EMT
       run: |
-        sudo apt-get update && sudo apt-get install genisoimage 
+        #sudo apt-get update && sudo apt-get install genisoimage 
+        
         git init
         git clone https://github.com/open-edge-platform/edge-microvisor-toolkit.git --branch=3.0.20250411
         ls -lah
         cd edge-microvisor-toolkit
+        sudo ./toolkit/docs/building/prerequisites-ubuntu.sh
+        sudo ln -vsf /usr/lib/go-1.21/bin/go /usr/bin/go
+        sudo ln -vsf /usr/lib/go-1.21/bin/gofmt /usr/bin/gofmt
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        sudo sh get-docker.sh
+        sudo usermod -aG docker $USER
+        
         #git checkout --branch=3.0.20250711
         cd toolkit
         wget https://raw.githubusercontent.com/smitesh-sutaria/edge-microvisor-toolkit/refs/heads/3.0/toolkit/imageconfigs/idv.json
