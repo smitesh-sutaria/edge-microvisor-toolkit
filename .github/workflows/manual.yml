@@ -42,7 +42,7 @@ jobs:
         mv idv.json ./imageconfigs/
         # mv ./imageconfigs/idv.json ./imageconfigs/full.json
         # mv ./imageconfigs/full.json ./imageconfigs/idv.json
-        sudo make toolchain REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n
+        sudo make toolchain REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n --debug
         sudo make iso -j8 REBUILD_TOOLS=y REBUILD_PACKAGES=n VALIDATE_TOOLCHAIN_GPG=n LICENSE_CHECK_MODE=warn CONFIG_FILE=./imageconfigs/idv.json
         # Artifact name
         name: iso
