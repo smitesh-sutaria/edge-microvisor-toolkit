@@ -35,14 +35,14 @@ jobs:
         git clone https://github.com/open-edge-platform/edge-microvisor-toolkit.git
         ls -lah
         cd edge-microvisor-toolkit
-        git checkout ${{ inputs.commit }}
+        git checkout --branch=3.0.20250711
         cd toolkit
         wget https://raw.githubusercontent.com/smitesh-sutaria/edge-microvisor-toolkit/refs/heads/3.0/toolkit/imageconfigs/idv.json
         #wget https://raw.githubusercontent.com/smitesh-sutaria/edge-microvisor-toolkit/refs/heads/3.0/toolkit/imageconfigs/idv-m.json
         mv idv.json ./imageconfigs/
         # mv ./imageconfigs/idv.json ./imageconfigs/full.json
         # mv ./imageconfigs/full.json ./imageconfigs/idv.json
-        sudo make toolchain REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n REBUILD_TOOLCHAIN=y
+        sudo make toolchain REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n
         sudo make iso -j8 REBUILD_TOOLS=y REBUILD_PACKAGES=n VALIDATE_TOOLCHAIN_GPG=n LICENSE_CHECK_MODE=warn CONFIG_FILE=./imageconfigs/idv.json
         # Artifact name
         name: iso
