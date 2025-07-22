@@ -44,7 +44,7 @@ jobs:
         #sudo sh get-docker.sh
         #sudo usermod -aG docker $USER
         
-        git checkout --branch=3.0.20250718
+        git checkout 3.0.20250718
         cd toolkit
         wget https://raw.githubusercontent.com/smitesh-sutaria/edge-microvisor-toolkit/refs/heads/3.0/toolkit/imageconfigs/idv.json
         #wget https://raw.githubusercontent.com/smitesh-sutaria/edge-microvisor-toolkit/refs/heads/3.0/toolkit/imageconfigs/idv-m.json
