@@ -31,7 +31,7 @@ jobs:
     # Runs a single command using the runners shell
     - name: Build EMT
       run: |
-        #sudo apt-get update && sudo apt-get install genisoimage 
+        sudo apt-get update && sudo apt-get install genisoimage 
         
         git init
         git clone https://github.com/open-edge-platform/edge-microvisor-toolkit.git --branch=3.0
