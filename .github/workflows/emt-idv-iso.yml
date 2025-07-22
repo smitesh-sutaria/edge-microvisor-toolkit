@@ -1,6 +1,7 @@
-# This is a basic workflow that is manually triggered
 
-name: Manual workflow
+# This is a workflow that is manually triggered to build EMT ISO for UCC
+
+name: EMT ISO Build
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
@@ -8,11 +9,11 @@ on:
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
-      name:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'Person to greet'
+      commit:
+        # description to be shown in the UI
+        description: 'commit id to build against'
         # Default value if no value is explicitly provided
-        default: 'World'
+        default: 'e19142d01a3f71e4f6a80ea59410e05ba75315cf'
         # Input has to be provided for the workflow to run
         required: true
         # The data type of the input
@@ -20,13 +21,46 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "greet"
-  greet:
+  # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  build-idv-iso:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Runs a single command using the runners shell
-    - name: Send greeting
-      run: echo "Hello ${{ inputs.name }}"
+    - name: Build EMT
+      run: |
+        #sudo apt-get update && sudo apt-get install genisoimage 
+        
+        git init
+        git clone https://github.com/open-edge-platform/edge-microvisor-toolkit.git --branch=3.0
+        ls -lah
+        cd edge-microvisor-toolkit
+        #sudo ./toolkit/docs/building/prerequisites-ubuntu.sh
+        #sudo ln -vsf /usr/lib/go-1.21/bin/go /usr/bin/go
+        #sudo ln -vsf /usr/lib/go-1.21/bin/gofmt /usr/bin/gofmt
+        #curl -fsSL https://get.docker.com -o get-docker.sh
+        #sudo sh get-docker.sh
+        #sudo usermod -aG docker $USER
+        
+        git checkout --branch=3.0.20250718
+        cd toolkit
+        wget https://raw.githubusercontent.com/smitesh-sutaria/edge-microvisor-toolkit/refs/heads/3.0/toolkit/imageconfigs/idv.json
+        #wget https://raw.githubusercontent.com/smitesh-sutaria/edge-microvisor-toolkit/refs/heads/3.0/toolkit/imageconfigs/idv-m.json
+        mv idv.json ./imageconfigs/
+        # mv ./imageconfigs/idv.json ./imageconfigs/full.json
+        # mv ./imageconfigs/full.json ./imageconfigs/idv.json
+        sudo make toolchain REBUILD_TOOLS=y VALIDATE_TOOLCHAIN_GPG=n --debug
+        sudo make iso -j8 REBUILD_TOOLS=y REBUILD_PACKAGES=n VALIDATE_TOOLCHAIN_GPG=n CONFIG_FILE=./imageconfigs/full.json
+        # Artifact name
+        name: iso
+        # A file, directory or wildcard pattern that describes what to upload
+        path: ../out/images/idv/*.iso
+
+
+          
+        
+
+        
+      
