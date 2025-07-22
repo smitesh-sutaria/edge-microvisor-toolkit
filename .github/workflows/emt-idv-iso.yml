@@ -1,7 +1,7 @@
 
 # This is a workflow that is manually triggered to build EMT ISO for UCC
 
-name: EMT ISO Build
+name: EMT IDV ISO Build
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
